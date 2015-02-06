@@ -33,14 +33,16 @@ if ($dbSuccess) {
 					'companyname',
 					'category',
 					'grade',			
-					'website'				
+					'website',
+					'password'			
 		);
-      $numFields = 4;
+      $numFields = 5;
 		$createTable_SQL = "
 					CREATE TABLE tpc.companys 
 					( ID INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY , 
 					companyname VARCHAR( 250 ) NOT NULL, grade VARCHAR( 5 )NULL, 
-					category VARCHAR( 50 ) NULL, website VARCHAR( 50 ) NULL 
+					category VARCHAR( 50 ) NULL, website VARCHAR( 50 ) NULL ,
+					password VARCHAR( 50 ) NULL
 		)";
 		echo $createTable_SQL.'<br>';
 	}
@@ -68,7 +70,7 @@ if ($dbSuccess) {
 		{	//		DROP table		
 	
 		
-			$drop_SQL = "DROP TABLE '$tableName'";
+			$drop_SQL = "DROP TABLE $tableName";
 			
 			if (mysql_query($drop_SQL))  {	
 				echo "DROP ".$tableName."' -  Successful.";

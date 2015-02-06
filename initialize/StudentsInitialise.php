@@ -35,15 +35,16 @@ if ($dbSuccess) {
 					'email',			
 					'mobileNo',
 					'programme',
-					'cpi'				
+					'cpi',
+					'password'				
 		);
-      $numFields = 6;
+      $numFields = 7;
 		$createTable_SQL = "
 					CREATE TABLE tpc.students 
 					( name VARCHAR( 250 ) NOT NULL, rollno VARCHAR( 8 ) NOT NULL PRIMARY KEY, 
 					email VARCHAR( 50 ) NULL, mobileNo VARCHAR( 20 ) NULL,
 					programme VARCHAR( 50 ) NULL,
-					cpi FLOAT DEFAULT '0'
+					cpi FLOAT DEFAULT '0', password VARCHAR( 50 ) NULL
 		)";
 		echo $createTable_SQL.'<br>';
 	}
@@ -71,7 +72,7 @@ if ($dbSuccess) {
 		{	//		DROP table		
 	
 		
-			$drop_SQL = "DROP TABLE '$tableName'";
+			$drop_SQL = "DROP TABLE $tableName";
 			
 			if (mysql_query($drop_SQL))  {	
 				echo "DROP ".$tableName."' -  Successful.";
