@@ -1,0 +1,39 @@
+<html>
+        <h2 style="font-family: arial, helvetica, sans-serif;" >
+				New Company Creation Form
+			</h2>
+
+	<br /> 
+	<form name="postCompany" action="companySave.php" method="post">
+						<table>
+					<tr>
+						<td>Name</td>
+						<td><input type="text" name="name" /></td>
+					</tr>
+					<tr>
+						<td>Roll No.</td>
+						<td><input type="text" name="rollno" /></td>
+					</tr>
+					<tr>
+						<td>E-mail ID</td>
+						<td><input type="text" name="email" /></td>
+					</tr>
+					<tr>
+						<td>Mobile No.</td>
+						<td><input type="text" name="mobile" /></td>
+					</tr>
+					<tr>
+						<td>Programme</td>
+						<td><input type="text" name="programme" /></td>
+					</tr>
+					<tr>
+						<td>CPI</td>
+						<td><input type="text" name="cpi" /></td>
+					</tr>
+					<tr>
+						<td align="right"><input type="submit"  value="Save" /></td>
+					</tr>
+				</table>
+					
+	 </form>
+</html>
