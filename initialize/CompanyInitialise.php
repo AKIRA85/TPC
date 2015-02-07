@@ -40,7 +40,7 @@ if ($dbSuccess) {
 		$createTable_SQL = "
 					CREATE TABLE tpc.companys 
 					( ID INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY , 
-					companyname VARCHAR( 250 ) NOT NULL, grade VARCHAR( 5 )NULL, 
+					companyname VARCHAR( 250 ) NOT NULL UNIQUE, grade VARCHAR( 5 )NULL, 
 					category VARCHAR( 50 ) NULL, website VARCHAR( 50 ) NULL ,
 					password VARCHAR( 50 ) NULL
 		)";
@@ -65,7 +65,6 @@ if ($dbSuccess) {
 			$numRows = sizeof($tableData);
 		}
 		echo '$numRows : '.$numRows.'<br />';
-		echo '$tableField[$numFields-1] : '.$tableField[$numFields-1].'<br />';
 
 		{	//		DROP table		
 	
@@ -107,7 +106,6 @@ if ($dbSuccess) {
 				$table_SQLinsert .=  "(";
 				
 				foreach($tableField as $key => $tableFieldName) {
-					
 					$table_SQLinsert .=  "'".$tableData[$indx][$key]."'";
 					if($tableFieldName <> $tableField[$numFields-1]) {
 						$table_SQLinsert .=  ", ";
@@ -115,7 +113,7 @@ if ($dbSuccess) {
 
 				}
 
-				$table_SQLinsert .=  ") ";
+				$table_SQLinsert .= ") ";
 				if ($indx < ($numRows - 1)) {
 					$table_SQLinsert .=  ",\n";
 				}

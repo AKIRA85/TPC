@@ -65,7 +65,8 @@ if ($dbSuccess) {
 					if (mysql_query($tCompany_SQLinsert))  {	
 						echo 'used to Successfully add new company.<br /><br />';
 					} else {
-						echo '<span style="color:red; ">FAILED to add new company.</span><br /><br />';
+						echo '<span style="color:red; ">Company Name already exist.<br>
+						     FAILED to add new company.</span><br /><br />';
 						
 					}	
 			}
