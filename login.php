@@ -21,14 +21,25 @@
 }
 
 if ($dbSuccess) {
+
+	if (isset($_GET['status']) AND ($_GET['status'] == "logout")) {
+				$status = $_GET['status'];
+				setcookie("loggedin", "", time()-7200);	
+				header("Location: index.html");
+			}	
+	$allow = false;
 	$tablename="students";
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$passwordRetrieved = "";
+	if(isset($_COOKIE['loggedin'])) {
+			$allow=true;
+	}
 	if( $_POST['login']==1 ) {
 		
 		$tUser_SQLselect = "SELECT name, password FROM $tablename ";
 		$tUser_SQLselect .= "WHERE rollno = '$username' ";	
+		$type = "student";
 
 		$tUser_SQLselect_Query = mysql_query($tUser_SQLselect); 	
 		if ($row = mysql_fetch_array($tUser_SQLselect_Query, MYSQL_ASSOC)) {
@@ -39,13 +50,13 @@ if ($dbSuccess) {
 		mysql_free_result($tUser_SQLselect_Query);
 		
 		if ($password == $passwordRetrieved) { 
-				setcookie("loginAuthorised", "loginAuthorised", time()+7200, "/");	
-				setcookie("type", "student", time()+7200, "/");
-				setcookie("name", $username, time()+7200, "/");
-				setcookie("rollno", $username, time()+7200, "/");	
-				echo 'logged in';
+				setcookie("loggedin", "loggedin", time()+7200, "/");	
+				setcookie("type", $type, time()+7200, "/");
+				setcookie("name", $name, time()+7200, "/");
+				setcookie("rollno", $username, time()+7200, "/");
+				$allow = true;	
 				
-		} else {
+		}else {
 			echo "Access denied.<br /><br />";		
 			echo '<a href="index.html">Try again</a>';			
 		}
@@ -62,17 +73,20 @@ if ($dbSuccess) {
 
 		mysql_free_result($tUser_SQLselect_Query);
 		if($password == $passwordRetrieved ) { 
-				setcookie("loginAuthorised", "loginAuthorised", time()+7200, "/");	
+				setcookie("loggedin", "loggedin", time()+7200, "/");	
 				setcookie("type", "company", time()+7200, "/");
 				setcookie("name", $username, time()+7200, "/");	
+				$allow = true;
 				echo 'logged in as '.$username ."\n";
 		}else {
-			echo "Access denied for this company .<br /><br />";
-			echo '<a href="index.html">Try again</a>';			
+					echo "Access denied.<br /><br />";		
+			echo '<a href="index.html">Try again</a>';		
 		}
 	}
 	else{
-		$tablename = "admin ";
+		//if admin logs in
+		$tablename = "admins";
+		$type = "admin";
 		$tUser_SQLselect = "SELECT password FROM $tablename ";
 		$tUser_SQLselect .= "WHERE username = '$username'";	
 
@@ -83,14 +97,18 @@ if ($dbSuccess) {
 
 		mysql_free_result($tUser_SQLselect_Query);
 		if($password == $passwordRetrieved ) { 
-				setcookie("loginAuthorised", "loginAuthorised", time()+7200, "/");	
-				setcookie("type", "admin", time()+7200, "/");
+				setcookie("loggedin", "loggedin", time()+7200, "/");	
+				setcookie("type", $type, time()+7200, "/");
 				setcookie("name", $username, time()+7200, "/");	
-				header("Location: home.php");
+				$allow = true;
 		}else {
-			echo "Access denied for this company .<br /><br />";
-			echo '<a href="index.html">Try again</a>';			
+				echo "Access denied.<br /><br />";		
+			echo '<a href="index.html">Try again</a>';
 		}
+		
+	}
+	if($allow) {
+		header("Location: home.php");
 	}
 }
 ?>
