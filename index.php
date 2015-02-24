@@ -55,8 +55,8 @@
 				   <button name="login" value="2" type="submit">Company Login</button>
 				</td>
 		   </tr>
-	   </table>  
-	<form>
+		 </table> 
+		</form> 
 	 <hr> 
 	 <form action="login.php" method="post">
 	   <table>
@@ -75,7 +75,7 @@
 				</td>
 		   </tr>
 	   </table>  
-	<form>
+	</form>
 	</div>
 </body>
 </html>

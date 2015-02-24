@@ -13,21 +13,8 @@
 *=====================================
 */
 
-{ 		//	Secure Connection Script
-		$dbSuccess = false;
-		$dbConnected = mysql_connect('localhost','root','');
-		
-		if ($dbConnected) {		
-			$dbSelected = mysql_select_db('tpc',$dbConnected);
-			if ($dbSelected) {
-				$dbSuccess = true;
-			} 	
-		}
-		//	END	Secure Connection Script
-}
-
 if ($dbSuccess) {
-		
+	if(isset($_POST["save"])) {
 		{  //   collect the data with $_POST
 		
 			$Name = $_POST["name"];	
@@ -64,12 +51,10 @@ if ($dbSuccess) {
 			if (empty($Name)) {
 				echo '<span style="color:red; ">Cannot add student with no name.</span><br /><br />'; 
 			} else {
-					echo '<span style = "text-decoration: underline;">
-							SQL statement:</span>
-							<br />'.$tCompany_SQLinsert.'<br /><br />';
+			//		echo '<span style = "text-decoration: underline;">SQL statement:</span><br />'.$tCompany_SQLinsert.'<br /><br />';
 							
 					if (mysql_query($tCompany_SQLinsert))  {	
-						echo 'used to Successfully add new student.<br /><br />';
+						echo 'Successfully add new student.<br /><br />';
 					} else {
 						echo '<span style="color:red; ">FAILED to add new company.</span><br /><br />';
 						
@@ -77,12 +62,46 @@ if ($dbSuccess) {
 			}
 		}
 
+	}
 }
 
-echo "<br /><hr /><br />";
-
-echo '<a href="studentCreate.html">Create another student</a>';
-echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-echo '<a href="../index.php">Quit - to homepage</a>';
-
 ?>
+<html>
+        <h2 style="font-family: arial, helvetica, sans-serif;" >
+				New Company Creation Form
+			</h2>
+
+	<br /> 
+	<form name="postCompany" action="home.php?content=forms/studentSave.php" method="post">
+						<table>
+					<tr>
+						<td>Name</td>
+						<td><input type="text" name="name" /></td>
+					</tr>
+					<tr>
+						<td>Roll No.</td>
+						<td><input type="text" name="rollno" /></td>
+					</tr>
+					<tr>
+						<td>E-mail ID</td>
+						<td><input type="text" name="email" /></td>
+					</tr>
+					<tr>
+						<td>Mobile No.</td>
+						<td><input type="text" name="mobile" /></td>
+					</tr>
+					<tr>
+						<td>Programme</td>
+						<td><input type="text" name="programme" /></td>
+					</tr>
+					<tr>
+						<td>CPI</td>
+						<td><input type="text" name="cpi" /></td>
+					</tr>
+					<tr>
+						<td align="right"><input type="submit" name="save" value="Save" /></td>
+					</tr>
+				</table>
+					
+	 </form>
+</html>

@@ -13,21 +13,9 @@
 *=====================================
 */
 
-{ 		//	Secure Connection Script
-		$dbSuccess = false;
-		$dbConnected = mysql_connect('localhost','root','');
-		
-		if ($dbConnected) {		
-			$dbSelected = mysql_select_db('tpc',$dbConnected);
-			if ($dbSelected) {
-				$dbSuccess = true;
-			} 	
-		}
-		//	END	Secure Connection Script
-}
-
 if ($dbSuccess) {
-		
+		if(isset($_POST["save"])) 
+		{
 		{  //   collect the data with $_POST
 		
 			$Name = $_POST["name"];	
@@ -58,12 +46,10 @@ if ($dbSuccess) {
 			if (empty($Name)) {
 				echo '<span style="color:red; ">Cannot add company with no name.</span><br /><br />'; 
 			} else {
-					echo '<span style = "text-decoration: underline;">
-							SQL statement:</span>
-							<br />'.$tCompany_SQLinsert.'<br /><br />';
+				//	echo '<span style = "text-decoration: underline;">SQL statement:</span><br />'.$tCompany_SQLinsert.'<br /><br />';
 							
 					if (mysql_query($tCompany_SQLinsert))  {	
-						echo 'used to Successfully add new company.<br /><br />';
+						echo 'Successfully add new company.<br /><br />';
 					} else {
 						echo '<span style="color:red; ">Company Name already exist.<br>
 						     FAILED to add new company.</span><br /><br />';
@@ -74,10 +60,36 @@ if ($dbSuccess) {
 
 }
 
-echo "<br /><hr /><br />";
-
-echo '<a href="companyCreate.html">Create another company</a>';
-echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-echo '<a href="../index.php">Quit - to homepage</a>';
-
+}
 ?>
+<html>
+        <h2 style="font-family: arial, helvetica, sans-serif;" >
+				New Company Creation Form
+			</h2>
+
+	<br /> 
+	<form name="postCompany" action="home.php?content=forms/companySave.php" method="post">
+				<table>
+					<tr>
+						<td>Name</td>
+						<td><input type="text" name="name" /></td>
+					</tr>
+					<tr>
+						<td>Grade</td>
+						<td><input type="text" name="grade" /></td>
+					</tr>
+					<tr>
+						<td>Category</td>
+						<td><input type="text" name="category" /></td>
+					</tr>
+					<tr>
+						<td>website</td>
+						<td><input type="text" name="website" /></td>
+					</tr>
+					<tr>
+						<td align="right"><input type="submit"  name="save" value="Save" /></td>
+					</tr>
+				</table>
+					
+	 </form>
+</html>
